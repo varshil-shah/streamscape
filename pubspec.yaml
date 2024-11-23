@@ -41,6 +41,8 @@ dependencies:
   connectivity_plus: ^6.0.5
   shimmer: ^3.0.0
   better_player_plus: ^1.0.3
+  flutter_gemini: ^2.0.5
+  flutter_dotenv: ^5.2.1
 
 dev_dependencies:
   flutter_test:

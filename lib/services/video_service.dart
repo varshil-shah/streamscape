@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:http/http.dart' as http;
 import 'package:streamscape/services/storage_service.dart';
 import '../models/video_model.dart';
@@ -52,6 +53,36 @@ class VideoService {
       debugPrint('Error in getVideos: $e');
       debugPrint('Stack trace: $stackTrace');
       rethrow;
+    }
+  }
+
+  Future<String> generateAISummary(
+      String description, String subtitleUrl) async {
+    final gemini = Gemini.instance;
+    String subtitleContent = "";
+    if (subtitleUrl.isNotEmpty) {
+      final response = await http.get(Uri.parse(subtitleUrl));
+      if (response.statusCode == 200) {
+        subtitleContent = response.body;
+      }
+    }
+
+    String prompt = '''
+      Please provide a concise summary of this video content. Here are the details:
+
+      Video Description:
+      $description
+
+      ${subtitleContent.isNotEmpty ? 'Video Subtitles:\n$subtitleContent' : ''}
+
+      Please generate a clear, informative summary that captures the main points and key takeaways.
+      ''';
+
+    final response = await gemini.text(prompt);
+    if (response?.content != null) {
+      return response!.content!.parts!.first.text.toString();
+    } else {
+      throw Exception('Failed to generate AI summary');
     }
   }
 }

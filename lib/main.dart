@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:provider/provider.dart';
 import 'package:streamscape/constants.dart';
 import 'package:streamscape/providers/connectivity_provider.dart';
@@ -7,7 +9,11 @@ import 'package:streamscape/providers/video_provider.dart';
 import 'package:streamscape/routes.dart';
 import 'package:streamscape/widgets/internet_connectivity.dart';
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: ".env");
+
+  Gemini.init(apiKey: "AIzaSyBtN8kW7kcOiH70G82cAOts3oeD_kfDUZs");
+
   runApp(
     MultiProvider(
       providers: [
