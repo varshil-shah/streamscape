@@ -26,33 +26,31 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _selectedIndex == 0
-          ? AppBar(
-              title: const Text("StreamScape"),
-              leading: Image.asset(
-                'assets/icons/logo.png',
-              ),
-              backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-              actions: [
-                IconButton(
-                  icon: const Icon(Icons.notifications),
-                  onPressed: () {
-                    // testing purpose
-                    Navigator.pushNamed(context, Routes.video);
-                  },
-                ),
-                Hero(
-                  tag: 'searchBar',
-                  child: IconButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, Routes.search);
-                    },
-                    icon: const Icon(Icons.search),
-                  ),
-                )
-              ],
-            )
-          : null,
+      appBar: AppBar(
+        title: const Text("StreamScape"),
+        leading: Image.asset(
+          'assets/icons/logo.png',
+        ),
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.notifications),
+            onPressed: () {
+              // testing purpose
+              Navigator.pushNamed(context, Routes.video);
+            },
+          ),
+          Hero(
+            tag: 'searchBar',
+            child: IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.search);
+              },
+              icon: const Icon(Icons.search),
+            ),
+          )
+        ],
+      ),
       body: SafeArea(
         child: PageView(
           controller: _pageController,
