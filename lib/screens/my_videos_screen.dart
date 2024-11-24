@@ -25,40 +25,60 @@ class _MyVideosScreenState extends State<MyVideosScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<VideoProvider>(
-        builder: (context, videoProvider, child) {
-          if (videoProvider.isLoading) {
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await Provider.of<VideoProvider>(context, listen: false)
+              .fetchMyVideos();
+        },
+        child: Consumer<VideoProvider>(
+          builder: (context, videoProvider, child) {
+            if (videoProvider.isLoading) {
+              return ListView.builder(
+                padding: const EdgeInsets.all(16),
+                itemCount: 5,
+                itemBuilder: (context, index) => const VideoCardShimmer(),
+              );
+            }
+
+            if (videoProvider.error != null) {
+              return ListView(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.7,
+                    child: Center(
+                      child: Text(
+                        'Error: ${videoProvider.error}',
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            }
+
+            if (videoProvider.videos.isEmpty) {
+              return ListView(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.7,
+                    child: const Center(
+                      child: Text('No videos found'),
+                    ),
+                  ),
+                ],
+              );
+            }
+
             return ListView.builder(
               padding: const EdgeInsets.all(16),
-              itemCount: 5, // Number of shimmer items
-              itemBuilder: (context, index) => const VideoCardShimmer(),
+              itemCount: videoProvider.videos.length,
+              itemBuilder: (context, index) {
+                final video = videoProvider.videos[index];
+                return VideoCard(video: video);
+              },
             );
-          }
-
-          if (videoProvider.error != null) {
-            return Center(
-              child: Text(
-                'Error: ${videoProvider.error}',
-                style: const TextStyle(color: Colors.red),
-              ),
-            );
-          }
-
-          if (videoProvider.videos.isEmpty) {
-            return const Center(
-              child: Text('No videos found'),
-            );
-          }
-
-          return ListView.builder(
-            padding: const EdgeInsets.all(16),
-            itemCount: videoProvider.videos.length,
-            itemBuilder: (context, index) {
-              final video = videoProvider.videos[index];
-              return VideoCard(video: video);
-            },
-          );
-        },
+          },
+        ),
       ),
     );
   }
