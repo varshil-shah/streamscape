@@ -80,7 +80,7 @@ class _SigninScreenState extends State<SigninScreen> {
     }
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -93,6 +93,9 @@ class _SigninScreenState extends State<SigninScreen> {
                   SvgPicture.asset(
                     "assets/images/access_account.svg",
                     height: size.height * 0.35,
+                    colorFilter: Theme.of(context).brightness == Brightness.dark
+                        ? const ColorFilter.mode(Colors.white, BlendMode.srcIn)
+                        : null,
                   ),
                   const SizedBox(height: 50),
                   Padding(
@@ -152,9 +155,15 @@ class _SigninScreenState extends State<SigninScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text(
+                            Text(
                               "Don't have an account?",
-                              style: TextStyle(fontSize: 16),
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.color,
+                              ),
                             ),
                             TextButton(
                               onPressed: () {

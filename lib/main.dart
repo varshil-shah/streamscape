@@ -4,6 +4,7 @@ import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:provider/provider.dart';
 import 'package:streamscape/constants.dart';
 import 'package:streamscape/providers/connectivity_provider.dart';
+import 'package:streamscape/providers/theme_provider.dart';
 import 'package:streamscape/providers/user_provider.dart';
 import 'package:streamscape/providers/video_provider.dart';
 import 'package:streamscape/routes.dart';
@@ -25,6 +26,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => VideoProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => ConnectivityProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
       ],
       child: const MyApp(),
     ),
@@ -36,6 +38,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return MaterialApp(
       title: 'StreamScape',
       theme: ThemeData(
@@ -46,6 +50,16 @@ class MyApp extends StatelessWidget {
         primaryColor: primaryColor,
         useMaterial3: true,
       ),
+      darkTheme: ThemeData.dark().copyWith(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: primaryColor,
+          secondary: secondaryColor,
+          brightness: Brightness.dark,
+        ),
+        primaryColor: primaryColor,
+        useMaterial3: true,
+      ),
+      themeMode: themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
       onGenerateRoute: Routes.generateRoute,
       initialRoute: Routes.initial,
       builder: (context, child) {

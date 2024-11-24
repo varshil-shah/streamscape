@@ -26,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildShimmerEffect() {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return ListView.builder(
       padding: const EdgeInsets.symmetric(vertical: 12),
       itemCount: 5,
@@ -33,8 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
         return Container(
           margin: const EdgeInsets.only(bottom: 20),
           child: Shimmer.fromColors(
-            baseColor: Colors.grey[300]!,
-            highlightColor: Colors.grey[100]!,
+            baseColor: isDark ? Colors.grey[700]! : Colors.grey[300]!,
+            highlightColor: isDark ? Colors.grey[600]! : Colors.grey[100]!,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -98,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Consumer<VideoProvider>(
         builder: (context, provider, _) {
           if (provider.isLoading) {

@@ -88,7 +88,7 @@ class _SignupScreenState extends State<SignupScreen> {
     }
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -101,6 +101,9 @@ class _SignupScreenState extends State<SignupScreen> {
                   SvgPicture.asset(
                     "assets/images/secure_login.svg",
                     height: size.height * 0.3,
+                    colorFilter: Theme.of(context).brightness == Brightness.dark
+                        ? const ColorFilter.mode(Colors.white, BlendMode.srcIn)
+                        : null,
                   ),
                   const SizedBox(height: 50),
                   Padding(
@@ -174,8 +177,16 @@ class _SignupScreenState extends State<SignupScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text("Already have an account?",
-                                style: TextStyle(fontSize: 16)),
+                            Text(
+                              "Already have an account?",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.color,
+                              ),
+                            ),
                             TextButton(
                               onPressed: () {
                                 Navigator.pushNamed(context, Routes.signin);

@@ -32,7 +32,7 @@ class _MainScreenState extends State<MainScreen> {
               leading: Image.asset(
                 'assets/icons/logo.png',
               ),
-              backgroundColor: Colors.white,
+              backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
               actions: [
                 IconButton(
                   icon: const Icon(Icons.notifications),
@@ -65,7 +65,8 @@ class _MainScreenState extends State<MainScreen> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
+        backgroundColor:
+            Theme.of(context).bottomNavigationBarTheme.backgroundColor,
         type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex,
         onTap: (index) {

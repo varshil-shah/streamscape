@@ -21,6 +21,8 @@ class _UploadScreenState extends State<UploadScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Upload Video'),
@@ -60,7 +62,7 @@ class _UploadScreenState extends State<UploadScreen> {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          'MP4, MOV up to 1GB',
+                          'MP4 up to 10MB',
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall
@@ -146,8 +148,14 @@ class _UploadScreenState extends State<UploadScreen> {
                       // Upload logic will go here
                     }
                   },
-                  icon: const Icon(Icons.upload),
-                  label: const Text('Upload Video'),
+                  icon: Icon(
+                    Icons.upload,
+                    color: isDark ? Colors.white : null,
+                  ),
+                  label: Text(
+                    'Upload Video',
+                    style: TextStyle(color: isDark ? Colors.white : null),
+                  ),
                   style: FilledButton.styleFrom(
                     backgroundColor: Theme.of(context).primaryColor,
                     padding: const EdgeInsets.symmetric(vertical: 16),
