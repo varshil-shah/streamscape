@@ -42,8 +42,6 @@ class _SigninScreenState extends State<SigninScreen> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    emailController.text = "varshilshah.in@gmail.com";
-    passwordController.text = "Test@1234";
 
     void handleSignup() async {
       if (!formKey.currentState!.validate()) {
@@ -95,9 +93,6 @@ class _SigninScreenState extends State<SigninScreen> {
                   SvgPicture.asset(
                     "assets/images/access_account.svg",
                     height: size.height * 0.35,
-                    colorFilter: Theme.of(context).brightness == Brightness.dark
-                        ? const ColorFilter.mode(Colors.white, BlendMode.srcIn)
-                        : null,
                   ),
                   const SizedBox(height: 50),
                   Padding(

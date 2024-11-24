@@ -8,6 +8,7 @@ import 'package:streamscape/providers/theme_provider.dart';
 import 'package:streamscape/providers/user_provider.dart';
 import 'package:streamscape/providers/video_provider.dart';
 import 'package:streamscape/routes.dart';
+import 'package:streamscape/services/auth_service.dart';
 import 'package:streamscape/widgets/internet_connectivity.dart';
 
 Future<void> main() async {

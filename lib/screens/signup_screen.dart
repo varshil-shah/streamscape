@@ -101,9 +101,6 @@ class _SignupScreenState extends State<SignupScreen> {
                   SvgPicture.asset(
                     "assets/images/secure_login.svg",
                     height: size.height * 0.3,
-                    colorFilter: Theme.of(context).brightness == Brightness.dark
-                        ? const ColorFilter.mode(Colors.white, BlendMode.srcIn)
-                        : null,
                   ),
                   const SizedBox(height: 50),
                   Padding(

@@ -1,50 +1,74 @@
 import 'package:flutter/material.dart';
 import 'package:streamscape/constants.dart';
 
-class TextInputField extends StatefulWidget {
+class TextInputField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final IconData icon;
-  final ValueChanged<String>? onChanged;
-  final String? Function(String?)? validator;
   final bool obscureText;
-  final TextInputType keyboardType;
+  final TextInputType? keyboardType;
+  final String? Function(String?)? validator;
 
   const TextInputField({
-    super.key,
+    Key? key,
     required this.controller,
     required this.hintText,
     required this.icon,
-    this.onChanged,
-    this.validator,
     this.obscureText = false,
-    this.keyboardType = TextInputType.text,
-  });
+    this.keyboardType,
+    this.validator,
+  }) : super(key: key);
 
-  @override
-  State<TextInputField> createState() => _TextInputFieldState();
-}
-
-class _TextInputFieldState extends State<TextInputField> {
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return TextFormField(
-      controller: widget.controller,
-      onChanged: widget.onChanged,
-      obscureText: widget.obscureText,
-      validator: widget.validator,
-      keyboardType: widget.keyboardType,
+      controller: controller,
       decoration: InputDecoration(
-        hintText: widget.hintText,
-        prefixIcon: Icon(widget.icon),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(50),
-          borderSide: BorderSide.none,
+        hintText: hintText,
+        prefixIcon: Icon(
+          icon,
+          color: isDarkMode ? Colors.white70 : Colors.black87,
+        ),
+        hintStyle: TextStyle(
+          color: isDarkMode ? Colors.white60 : Colors.black54,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: isDarkMode ? Colors.white30 : Colors.black26,
+          ),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: primaryColor,
+            width: 2,
+          ),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.error,
+          ),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.error,
+            width: 2,
+          ),
+          borderRadius: BorderRadius.circular(8),
         ),
         filled: true,
-        fillColor: lightGreyColor,
-        iconColor: Theme.of(context).colorScheme.primary,
+        fillColor: isDarkMode ? Colors.grey[900] : Colors.grey[100],
       ),
+      style: TextStyle(
+        color: isDarkMode ? Colors.white : Colors.black,
+      ),
+      obscureText: obscureText,
+      keyboardType: keyboardType,
+      validator: validator,
     );
   }
 }

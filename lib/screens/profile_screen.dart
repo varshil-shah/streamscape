@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:streamscape/providers/user_provider.dart';
 import 'package:streamscape/providers/theme_provider.dart';
+import 'package:streamscape/routes.dart';
+import 'package:streamscape/services/auth_service.dart';
 import 'package:streamscape/widgets/circular_avatar.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -10,6 +12,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final UserProvider userProvider = Provider.of<UserProvider>(context);
+    final AuthService authService = AuthService();
     final ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
 
     return Padding(
@@ -40,7 +43,11 @@ class ProfileScreen extends StatelessWidget {
               const Spacer(),
               const SizedBox(width: 8),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  authService.signout(context);
+                  userProvider.clearUser();
+                  Navigator.pushReplacementNamed(context, Routes.signin);
+                },
                 icon: const Icon(
                   Icons.logout_sharp,
                   size: 30,
