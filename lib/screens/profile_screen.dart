@@ -14,6 +14,13 @@ class ProfileScreen extends StatelessWidget {
     final UserProvider userProvider = Provider.of<UserProvider>(context);
     final AuthService authService = AuthService();
     final ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
+    final user = userProvider.user;
+
+    if (user == null) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
 
     return Padding(
       padding: const EdgeInsets.all(12.0),
@@ -22,20 +29,20 @@ class ProfileScreen extends StatelessWidget {
         children: [
           Row(
             children: [
-              CircularAvatar(displayName: userProvider.user!.displayName),
+              CircularAvatar(displayName: user.displayName),
               const SizedBox(width: 16),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    userProvider.user!.displayName,
+                    user.displayName,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
                   ),
                   Text(
-                    userProvider.user!.email,
+                    user.email,
                     style: const TextStyle(fontSize: 16),
                   ),
                 ],
