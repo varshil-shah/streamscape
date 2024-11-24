@@ -253,6 +253,8 @@ class _VideoScreenState extends State<VideoScreen>
 
   @override
   Widget build(BuildContext context) {
+    print(widget.video.subtitleUrl);
+
     // Calculate remaining height by subtracting known heights from screen height
     final screenHeight = MediaQuery.of(context).size.height;
     final safePaddingTop = MediaQuery.of(context).padding.top;

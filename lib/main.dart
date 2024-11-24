@@ -9,10 +9,15 @@ import 'package:streamscape/providers/video_provider.dart';
 import 'package:streamscape/routes.dart';
 import 'package:streamscape/widgets/internet_connectivity.dart';
 
-void main() async {
-  await dotenv.load(fileName: ".env");
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-  Gemini.init(apiKey: "AIzaSyBtN8kW7kcOiH70G82cAOts3oeD_kfDUZs");
+  try {
+    await dotenv.load(fileName: ".env");
+    Gemini.init(apiKey: dotenv.env['GEMINI_API_KEY'] ?? '');
+  } catch (e) {
+    debugPrint('Error loading .env file: $e');
+  }
 
   runApp(
     MultiProvider(
