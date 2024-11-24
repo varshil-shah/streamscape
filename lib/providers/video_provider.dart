@@ -39,6 +39,24 @@ class VideoProvider extends ChangeNotifier {
     }
   }
 
+  Future<void> fetchMyVideos() async {
+    try {
+      _isLoading = true;
+      _error = null;
+      notifyListeners();
+
+      final videos = await _videoService.getMyVideos();
+      _videos = videos;
+      _isLoading = false;
+      notifyListeners();
+    } catch (e) {
+      _error = e.toString();
+      _isLoading = false;
+      _videos = [];
+      notifyListeners();
+    }
+  }
+
   Future<void> searchVideos(String query) async {
     try {
       _isLoading = true;

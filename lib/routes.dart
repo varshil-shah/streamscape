@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:streamscape/screens/history_screen.dart';
+import 'package:streamscape/screens/my_videos_screen.dart';
 import 'package:streamscape/screens/home_screen.dart';
 import 'package:streamscape/screens/main_screen.dart';
 import 'package:streamscape/screens/profile_screen.dart';
@@ -18,7 +18,7 @@ class Routes {
   static const String search = '/search';
   static const String profile = '/profile';
   static const String upload = '/upload';
-  static const String history = '/history';
+  static const String history = '/my_videos';
   static const String video = '/video';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -40,7 +40,7 @@ class Routes {
       case upload:
         return MaterialPageRoute(builder: (_) => const UploadScreen());
       case history:
-        return MaterialPageRoute(builder: (_) => const HistoryScreen());
+        return MaterialPageRoute(builder: (_) => const MyVideosScreen());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

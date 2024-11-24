@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streamscape/routes.dart';
-import 'package:streamscape/screens/history_screen.dart';
+import 'package:streamscape/screens/my_videos_screen.dart';
 import 'package:streamscape/screens/home_screen.dart';
 import 'package:streamscape/screens/profile_screen.dart';
 import 'package:streamscape/screens/upload_screen.dart';
@@ -19,7 +19,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _screens = [
     HomeScreen(),
     const UploadScreen(),
-    const HistoryScreen(),
+    const MyVideosScreen(),
     const ProfileScreen(),
   ];
 
@@ -83,8 +83,8 @@ class _MainScreenState extends State<MainScreen> {
             label: 'Upload',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.history),
-            label: 'History',
+            icon: Icon(Icons.video_library),
+            label: 'My videos',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
