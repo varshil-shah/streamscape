@@ -204,11 +204,25 @@ class _VideoScreenState extends State<VideoScreen>
     );
   }
 
+  Widget _buildShimmerEffect() {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return Shimmer.fromColors(
+      baseColor: isDark ? Colors.grey[700]! : Colors.grey[300]!,
+      highlightColor: isDark ? Colors.grey[600]! : Colors.grey[100]!,
+      child: AspectRatio(
+        aspectRatio: 16 / 9,
+        child: Container(color: isDark ? Colors.grey[700] : Colors.white),
+      ),
+    );
+  }
+
   Widget _buildAISummaryContent() {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     if (_isGeneratingAISummary) {
       return Shimmer.fromColors(
-        baseColor: Colors.grey[300]!,
-        highlightColor: Colors.grey[100]!,
+        baseColor: isDark ? Colors.grey[700]! : Colors.grey[300]!,
+        highlightColor: isDark ? Colors.grey[600]! : Colors.grey[100]!,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: List.generate(
@@ -219,7 +233,7 @@ class _VideoScreenState extends State<VideoScreen>
                 height: 16,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: isDark ? Colors.grey[700] : Colors.white,
                   borderRadius: BorderRadius.circular(4),
                 ),
               ),
@@ -253,6 +267,7 @@ class _VideoScreenState extends State<VideoScreen>
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     print(widget.video.subtitleUrl);
 
     // Calculate remaining height by subtracting known heights from screen height
@@ -295,16 +310,21 @@ class _VideoScreenState extends State<VideoScreen>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Title
+                      // Title Shimmer
                       isLoading
                           ? Shimmer.fromColors(
-                              baseColor: Colors.grey[300]!,
-                              highlightColor: Colors.grey[100]!,
+                              baseColor: isDark
+                                  ? Colors.grey[700]!
+                                  : Colors.grey[300]!,
+                              highlightColor: isDark
+                                  ? Colors.grey[600]!
+                                  : Colors.grey[100]!,
                               child: Container(
                                 height: 50,
                                 width: double.infinity,
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color:
+                                      isDark ? Colors.grey[700] : Colors.white,
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                               ),
@@ -349,7 +369,7 @@ class _VideoScreenState extends State<VideoScreen>
                       const Divider(height: 1),
                       const SizedBox(height: 8),
 
-                      // Tabs with modern styling
+                      // Tabs Shimmer
                       Theme(
                         data: Theme.of(context).copyWith(
                           splashColor: Colors.transparent,
@@ -357,12 +377,18 @@ class _VideoScreenState extends State<VideoScreen>
                         ),
                         child: isLoading
                             ? Shimmer.fromColors(
-                                baseColor: Colors.grey[300]!,
-                                highlightColor: Colors.grey[100]!,
+                                baseColor: isDark
+                                    ? Colors.grey[700]!
+                                    : Colors.grey[300]!,
+                                highlightColor: isDark
+                                    ? Colors.grey[600]!
+                                    : Colors.grey[100]!,
                                 child: Container(
                                   height: tabBarHeight,
                                   decoration: BoxDecoration(
-                                    color: Colors.white,
+                                    color: isDark
+                                        ? Colors.grey[700]
+                                        : Colors.white,
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                 ),
@@ -390,13 +416,17 @@ class _VideoScreenState extends State<VideoScreen>
 
                       const SizedBox(height: 16),
 
-                      // Tab Content with dynamic height
+                      // Tab Content Shimmer
                       SizedBox(
                         height: remainingHeight,
                         child: isLoading
                             ? Shimmer.fromColors(
-                                baseColor: Colors.grey[300]!,
-                                highlightColor: Colors.grey[100]!,
+                                baseColor: isDark
+                                    ? Colors.grey[700]!
+                                    : Colors.grey[300]!,
+                                highlightColor: isDark
+                                    ? Colors.grey[600]!
+                                    : Colors.grey[100]!,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -404,7 +434,9 @@ class _VideoScreenState extends State<VideoScreen>
                                       height: 16,
                                       width: double.infinity,
                                       decoration: BoxDecoration(
-                                        color: Colors.white,
+                                        color: isDark
+                                            ? Colors.grey[700]
+                                            : Colors.white,
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                     ),
@@ -413,7 +445,9 @@ class _VideoScreenState extends State<VideoScreen>
                                       height: 16,
                                       width: double.infinity,
                                       decoration: BoxDecoration(
-                                        color: Colors.white,
+                                        color: isDark
+                                            ? Colors.grey[700]
+                                            : Colors.white,
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                     ),
